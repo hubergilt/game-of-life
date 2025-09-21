@@ -1,4 +1,6 @@
-use game_of_life::Grid;
+mod grid;
+
+use grid::Grid;
 use indicatif::{ProgressBar, ProgressStyle};
 use std::thread;
 use std::time::Duration;
@@ -24,7 +26,7 @@ fn main() {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     ];
     let mut grid = Grid::new(15, 15);
-    let generation = 100;
+    let generation = 15;
     grid.from_vec(data);
     println!("=== Conway's Game of Life Animation ===\n");
     println!("Initial state:");
