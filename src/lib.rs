@@ -112,7 +112,7 @@ impl Grid {
                 if self.get(row, col) {
                     result.push_str("██");
                 } else {
-                    result.push_str("  ");
+                    result.push_str("░░");
                 }
             }
             result.push('\n');

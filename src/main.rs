@@ -4,6 +4,7 @@ use std::thread;
 use std::time::Duration;
 
 fn main() {
+    //pulsar
     #[rustfmt::skip]
     let data = vec![
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -23,7 +24,7 @@ fn main() {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     ];
     let mut grid = Grid::new(15, 15);
-    let generation = 16;
+    let generation = 100;
     grid.from_vec(data);
     println!("=== Conway's Game of Life Animation ===\n");
     println!("Initial state:");
