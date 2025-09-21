@@ -1,8 +1,8 @@
 #[derive(Clone)]
 pub struct Grid {
-    rows: usize,
-    cols: usize,
-    data: Vec<bool>,
+    pub rows: usize,
+    pub cols: usize,
+    pub data: Vec<bool>,
 }
 
 impl Grid {
@@ -14,12 +14,22 @@ impl Grid {
         }
     }
 
-    fn get(&self, row: usize, col: usize) -> bool {
+    pub fn get(&self, row: usize, col: usize) -> bool {
         self.data[self.cols * row + col]
     }
 
-    fn set(&mut self, row: usize, col: usize, value: bool) {
+    pub fn set(&mut self, row: usize, col: usize, value: bool) {
         self.data[self.cols * row + col] = value;
+    }
+
+    pub fn from_vec(&mut self, data: Vec<i32>) {
+        for index in 0..data.len() {
+            if data[index] == 1 {
+                self.data[index] = true;
+            } else if data[index] == 0 {
+                self.data[index] = false;
+            }
+        }
     }
 
     fn count_neighbors(&self, row: usize, col: usize) -> usize {
@@ -48,7 +58,7 @@ impl Grid {
         count
     }
 
-    fn next_generation(&self) -> Self {
+    pub fn next_generation(&self) -> Self {
         let mut nextgen = Self::new(self.rows, self.cols);
         for row in 0..self.rows {
             for col in 0..self.cols {
@@ -72,13 +82,13 @@ impl Grid {
         nextgen
     }
 
-    fn show_generation(&self, generation: usize) {
-        let mut nextgen = Self::new(self.rows, self.cols);
-        nextgen.data = self.data.clone();
+    fn nth_generation(&self, generation: usize) -> Self {
+        let mut nthgen = Self::new(self.rows, self.cols);
+        nthgen.data = self.data.clone();
         for _ in 0..generation {
-            nextgen = nextgen.next_generation()
+            nthgen = nthgen.next_generation()
         }
-        nextgen.print();
+        nthgen
     }
 
     pub fn print(&self) {
@@ -93,6 +103,21 @@ impl Grid {
             }
             println!("{}", line);
         }
+    }
+
+    pub fn format_grid(&self) -> String {
+        let mut result = String::new();
+        for row in 0..self.rows {
+            for col in 0..self.cols {
+                if self.get(row, col) {
+                    result.push_str("██");
+                } else {
+                    result.push_str("  ");
+                }
+            }
+            result.push('\n');
+        }
+        result
     }
 }
 
@@ -170,7 +195,7 @@ mod tests {
     }
 
     #[test]
-    fn show_generation_test() {
+    fn nth_generation_test() {
         #[rustfmt::skip]
         let data = vec![
             true, false, true, false, true,
@@ -179,9 +204,6 @@ mod tests {
             false, false, false, false, true,
             true, true, true, true, false
         ];
-        let mut grid = Grid::new(5, 5);
-        grid.data = data;
-        grid.print();
         #[rustfmt::skip]
         let nextnextgen = [
             false, true, false, false, false,
@@ -190,7 +212,10 @@ mod tests {
             true, false, false, false, true,
             false, true, true, true, false
         ];
-        assert_eq!(grid.next_generation().next_generation().data, nextnextgen);
+        let mut grid = Grid::new(5, 5);
+        grid.data = data;
+        grid.print();
         grid.next_generation().next_generation().print();
+        assert_eq!(grid.nth_generation(2).data, nextnextgen);
     }
 }
