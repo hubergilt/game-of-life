@@ -14,26 +14,19 @@
 └── src
     ├── grid.rs  # manages data as Vec<bool>
     └── main.rs  # start program
+```
 
 ## Run
 
 ```
-
 $ cargo run
 
 ```
 
 ![generation output](./image.png "generation output")
 
-
-
-
 ## Test
 
 ```
-
 $ cargo test -- --nocapture
-
-```
-
 ```
