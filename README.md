@@ -15,14 +15,20 @@
     ├── grid.rs  # manages data as Vec<bool>
     └── main.rs  # start program
 
-## Run and test
+## Run
 
 ```
 
 $ cargo run
 
 ```
-![generation output](image.png "generation output")
+
+![generation output](./image.png "generation output")
+
+
+
+
+## Test
 
 ```
 
