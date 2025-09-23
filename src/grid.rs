@@ -82,6 +82,7 @@ impl Grid {
         nextgen
     }
 
+    #[allow(dead_code)]
     fn nth_generation(&self, generation: usize) -> Self {
         let mut nthgen = Self::new(self.rows, self.cols);
         nthgen.data = self.data.clone();
@@ -91,6 +92,7 @@ impl Grid {
         nthgen
     }
 
+    #[allow(dead_code)]
     pub fn print(&self) {
         for row in 0..self.rows {
             let mut line = String::new();

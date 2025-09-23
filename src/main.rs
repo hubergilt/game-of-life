@@ -1,5 +1,6 @@
 mod grid;
 
+use clearscreen;
 use grid::Grid;
 use indicatif::{ProgressBar, ProgressStyle};
 use std::thread;
@@ -26,24 +27,17 @@ fn main() {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     ];
     let mut grid = Grid::new(15, 15);
-    let generation = 15;
+    let generations = 15;
     grid.from_vec(data);
+
+    clearscreen::clear().expect("Failed to clear screen");
     println!("=== Conway's Game of Life Animation ===\n");
-    println!("Initial state:");
-    grid.print();
-    println!();
-
     println!("🎮 Live grid animation...");
-
-    let current_grid = loop_display(&grid, generation);
+    let current_grid = loop_display(&grid, generations);
     let grid_display = current_grid.format_grid();
-
-    println!("Animation complete! Final generation: {generation}");
     println!("{grid_display}");
-
-    current_grid.print();
-
-    println!("\n{}", "=".repeat(30));
+    println!("Animation complete! Final generation: {generations}");
+    println!("\n{}", "=".repeat(40));
 }
 
 fn loop_display(initial_grid: &Grid, generations: usize) -> Grid {
